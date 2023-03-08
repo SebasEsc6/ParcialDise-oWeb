@@ -24,7 +24,7 @@ export const AddChance = ({onAddChance}) => {
     }
     const onSubmit = (event) => {
         event.preventDefault();
-        onAddChance(loteriaValue, numeroValue, precioValue);
+        onAddChance({loteriaValue, numeroValue, precioValue});
         setLoteriavalue('')
         setNumeroValue('')
         setPrecioValue('')
@@ -34,14 +34,16 @@ export const AddChance = ({onAddChance}) => {
     <>
         <form onSubmit={(event) => onSubmit(event)}>
             <select value={loteriaValue} onChange={(event) => onInputChangeL(event)}>
-                {loterias.map((nombre) =>{
-                    <option>
-                        {nombre}
-                    </option>
-                } )}
+                <option value={0}></option>
+                {loterias.map((item, i)=>(
+                  <option key={"Id "+i} value={item.nombre}>{item.id}. {item.nombre}</option>
+                )
+                )
+                }
             </select>
-            <input type='text' placeholder='Número' value={numeroValue} onChange={(event) => onInputChangeN(event) }></input>
+            <input type='text' placeholder='Número' minLength={3} maxLength={4} value={numeroValue} onChange={(event) => onInputChangeN(event) }></input>
             <input type='text' placeholder='Precio' value={precioValue} onChange={(event) => onInputChangeV(event) }></input>
+            <button type='submit'>Comprar</button>
             </form>    
     </>
   )
